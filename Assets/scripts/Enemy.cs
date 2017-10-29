@@ -42,6 +42,10 @@ public class Enemy : Actor, IPoolable<Enemy>
 
     public override void Knockback(GameObject _object, float _amount)
     {
+        if (_object.GetComponent<Projectile>())
+            m_rigidbody.AddForce(_object.transform.right * _amount);
+        else
+            base.Knockback(_object, _amount);
     }
 
     public override void Death()
