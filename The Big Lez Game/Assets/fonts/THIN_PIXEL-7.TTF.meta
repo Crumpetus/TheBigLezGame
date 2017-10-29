@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 47a7e9e98f13e6c47b6cb00078db8419
+timeCreated: 1509205719
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Thin Pixe-l7
+  fontNames:
+  - Thin Pixe-l7
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
