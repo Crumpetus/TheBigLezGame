@@ -9,7 +9,7 @@ public interface IPoolable<T> where T : MonoBehaviour, IPoolable<T>
 
 //Class that holds functionality for adding and removing from pool
 public class PoolData<T> where T : MonoBehaviour, IPoolable<T>
-{ 
+{
     public ObjectPool<T> myPool;
 
     public void TakePool(ObjectPool<T> _pool)
@@ -29,14 +29,22 @@ public class ObjectPool<T> where T : MonoBehaviour, IPoolable<T>
     protected List<T> pooledObjects = new List<T>();
     protected T poolObject = null;
 
-    //Constructor calls initialise function
-    public ObjectPool(T _poolObject, int _startSize,Transform t)
+    public List<T> objects
     {
-        InitialisePool(_poolObject, _startSize,t);
+        get
+        {
+            return pooledObjects;
+        }
+    }
+
+    //Constructor calls initialise function
+    public ObjectPool(T _poolObject, int _startSize, Transform t)
+    {
+        InitialisePool(_poolObject, _startSize, t);
     }
 
     //Sets up pool
-    private void InitialisePool(T _poolObject, int _startSize,Transform t)
+    private void InitialisePool(T _poolObject, int _startSize, Transform t)
     {
         poolObject = _poolObject;
         for (int i = 0; i < _startSize; ++i)

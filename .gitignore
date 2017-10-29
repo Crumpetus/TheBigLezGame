@@ -5,6 +5,13 @@
 /[Bb]uilds/
 /Assets/AssetStoreTools*
 
+/The Big Lez Game/[Ll]ibrary/
+/The Big Lez Game/[Tt]emp/
+/The Big Lez Game/[Oo]bj/
+/The Big Lez Game/[Bb]uild/
+/The Big Lez Game/[Bb]uilds/
+/The Big Lez Game/Assets/AssetStoreTools*
+
 # Visual Studio 2015 cache directory
 /.vs/
 

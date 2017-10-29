@@ -3,60 +3,63 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour, IPoolable<Projectile>
 {
-	public PoolData<Projectile> poolData { get; set; }
+    public PoolData<Projectile> poolData { get; set; }
 
-	public float maxLifetime;
-	float currentLifeTime;
+    public float maxLifetime;
+    float currentLifeTime;
 
-	[System.Serializable]
-	public class ProjData
-	{
-		[Header("Bullet stats")]
-		public float speed = 5;
-		public float damage = 50;
-	}
+    [System.Serializable]
+    public class ProjData
+    {
+        [Header("Bullet stats")]
+        public float speed = 5;
+        public float damage = 50;
+    }
 
-	public ProjData ProjectileData;
+    public ProjData ProjectileData;
 
-	void Awake ()
-	{
+    void Awake()
+    {
 
-	}
+    }
 
-	void Update ()
-	{
-		transform.Translate(Vector3.right * ProjectileData.speed  *Time.deltaTime);
+    void Update()
+    {
+        transform.Translate(Vector3.right * ProjectileData.speed * Time.deltaTime);
 
-		currentLifeTime += Time.deltaTime;
-		if (currentLifeTime > maxLifetime)
-			ReturnPool();
-	}
+        currentLifeTime += Time.deltaTime;
+        if (currentLifeTime > maxLifetime)
+            ReturnPool();
+    }
 
 
-	void OnTriggerEnter2D (Collider2D col)
-	{
-		if (col.tag != "Player" && col.tag != "bullet") {
-			if (col.GetComponent<Actor>()) {
-				BloodParticles.instance.Blood(transform.position,Random.Range(2,4));
-				col.GetComponent<Actor>().StartCoroutine(col.GetComponent<Actor>().TakeDamage(gameObject, ProjectileData.damage));
-			}
-			ReturnPool();
-		}
-	}
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.tag != "Player" && col.tag != "bullet")
+        {
+            if (col.GetComponent<Actor>())
+            {
+                BloodParticles.instance.Blood(transform.position, Random.Range(2, 4));
+                if (col.gameObject.activeSelf)
+                    col.GetComponent<Actor>().StartCoroutine(col.GetComponent<Actor>().TakeDamage(gameObject, ProjectileData.damage));
+            }
+            ReturnPool();
+        }
+    }
 
-	public void OnPooled (ProjData data, Vector3 eulerRotation, Vector3 startPos)
-	{
-		//set everything up
-		transform.position = startPos;
-		transform.rotation = Quaternion.Euler(eulerRotation);
-		ProjectileData = data;
-		gameObject.SetActive(true);
-	}
+    public void OnPooled(ProjData data, Vector3 eulerRotation, Vector3 startPos)
+    {
+        //set everything up
+        transform.position = startPos;
+        transform.rotation = Quaternion.Euler(eulerRotation);
+        ProjectileData = data;
+        gameObject.SetActive(true);
+    }
 
-	public void ReturnPool ()
-	{
-		currentLifeTime = 0;
-		poolData.ReturnPool(this);
-		gameObject.SetActive(false);
-	}
+    public void ReturnPool()
+    {
+        currentLifeTime = 0;
+        poolData.ReturnPool(this);
+        gameObject.SetActive(false);
+    }
 }
